@@ -160,7 +160,7 @@ def main(args):
     )
 
     train_steps = 0
-    for x, y in loader:
+    for x, y in tqdm(loader, desc="Extracting features", total=len(loader)):
         x = x.to(device)
         y = y.to(device)
         with torch.no_grad():
@@ -174,7 +174,6 @@ def main(args):
         np.save(f'{args.features_path}/imagenet256_labels/{train_steps}.npy', y)
             
         train_steps += 1
-        print(train_steps)
 
 if __name__ == "__main__":
     # Default args here will train DiT-XL/2 with the hyperparameters we used in our paper (except training iters).
